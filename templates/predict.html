@@ -1,0 +1,236 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-slate-900 mb-2">Cardiovascular <span class="text-medical-600">Health
+                Assessment</span></h2>
+        <p class="text-slate-500">Provide your clinical data below for an AI-powered risk evaluation.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Form Column -->
+        <div class="lg:col-span-5">
+            <div class="clean-card p-6 sm:p-8 relative overflow-hidden">
+                <!-- Decorative Top Border -->
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-medical-400 to-medical-600"></div>
+
+                <div class="flex items-center gap-3 mb-6">
+                    <div
+                        class="w-8 h-8 rounded-full bg-medical-100 text-medical-600 flex items-center justify-center font-bold text-sm">
+                        1</div>
+                    <h3 class="text-xl font-semibold text-slate-800">Patient Details</h3>
+                </div>
+
+                <form action="/predict" method="post" class="space-y-5">
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                        <input type="text" name="name"
+                            class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 focus:border-medical-500 transition-shadow outline-none border"
+                            placeholder="e.g. John Doe" required>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Age (Years)</label>
+                            <input type="number" name="age"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border"
+                                placeholder="e.g. 45" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Gender</label>
+                            <select name="gender"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border appearance-none"
+                                required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Height (cm)</label>
+                            <input type="number" name="height"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border"
+                                placeholder="e.g. 175" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Weight (kg)</label>
+                            <input type="number" name="weight"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border"
+                                placeholder="e.g. 70" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Systolic BP</label>
+                            <input type="number" name="ap_hi"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border"
+                                placeholder="e.g. 120" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Diastolic BP</label>
+                            <input type="number" name="ap_lo"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border"
+                                placeholder="e.g. 80" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Cholesterol</label>
+                            <select name="chol"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border appearance-none"
+                                required>
+                                <option value="1">Normal</option>
+                                <option value="2">Above Normal</option>
+                                <option value="3">High</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Glucose</label>
+                            <select name="gluc"
+                                class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-medical-500 outline-none border appearance-none"
+                                required>
+                                <option value="1">Normal</option>
+                                <option value="2">Above Normal</option>
+                                <option value="3">High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                        <label class="block text-sm font-medium text-slate-700 mb-3">Lifestyle Factors</label>
+                        <div class="flex flex-wrap gap-4 sm:gap-6">
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="smoke" id="smoke"
+                                    class="rounded text-medical-600 focus:ring-medical-500 h-4 w-4 border-slate-300">
+                                <span class="ml-2 text-sm text-slate-600">Smoker</span>
+                            </label>
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="alco" id="alco"
+                                    class="rounded text-medical-600 focus:ring-medical-500 h-4 w-4 border-slate-300">
+                                <span class="ml-2 text-sm text-slate-600">Alcohol</span>
+                            </label>
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="active" id="active"
+                                    class="rounded text-medical-600 focus:ring-medical-500 h-4 w-4 border-slate-300">
+                                <span class="ml-2 text-sm text-slate-600">Active</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-medical-600 hover:bg-medical-700 text-white font-medium py-3.5 rounded-xl shadow-sm shadow-medical-500/30 transition-all transform hover:-translate-y-0.5 mt-4">
+                        Generate Report
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Column -->
+        <div class="lg:col-span-7">
+            {% if prediction_text and summary %}
+            <div class="clean-card overflow-hidden h-full flex flex-col relative">
+                <!-- Decorative Top Border based on risk -->
+                <div
+                    class="absolute top-0 left-0 w-full h-1.5 {% if 'High' in prediction_text %}bg-rose-500{% else %}bg-emerald-500{% endif %}">
+                </div>
+
+                <div class="p-6 sm:p-8 flex-grow">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div
+                            class="w-8 h-8 rounded-full {% if 'High' in prediction_text %}bg-rose-100 text-rose-600{% else %}bg-emerald-100 text-emerald-600{% endif %} flex items-center justify-center font-bold text-sm">
+                            2</div>
+                        <h3 class="text-xl font-semibold text-slate-800">Assessment Results</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Key Factors Summary -->
+                        <div>
+                            <h4
+                                class="text-sm border-b border-slate-100 pb-2 font-semibold text-slate-500 uppercase tracking-wider mb-4">
+                                Clinical Profile</h4>
+                            <div class="space-y-3">
+                                {% for key, val in summary.items() %}
+                                <div
+                                    class="flex justify-between items-center py-2 bg-slate-50 px-3 rounded-lg border border-slate-100">
+                                    <span class="text-sm text-slate-500">{{ key }}</span>
+                                    <span class="text-sm font-semibold text-slate-800">{{ val }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Gauge/Risk Output -->
+                        <div
+                            class="flex flex-col items-center justify-center bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                            <h4 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">Risk
+                                Indication</h4>
+
+                            <!-- Simplified CSS Gauge -->
+                            <div class="relative w-40 h-20 mb-4">
+                                <div class="absolute inset-0 border-[16px] border-slate-200 rounded-t-full border-b-0">
+                                </div>
+                                <div class="absolute inset-0 border-[16px] {% if 'High' in prediction_text %}border-rose-500{% else %}border-emerald-500{% endif %} rounded-t-full border-b-0"
+                                    style="clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);"></div>
+                            </div>
+
+                            <h2
+                                class="text-2xl font-bold {% if 'High' in prediction_text %}text-rose-600{% else %}text-emerald-600{% endif %} mb-1">
+                                {{ prediction_text }}
+                            </h2>
+                            {% if 'High' in prediction_text %}
+                            <p class="text-xs text-rose-500/80 text-center mt-2 px-2">Elevated probability detected.
+                                Follow-up recommended.</p>
+                            {% else %}
+                            <p class="text-xs text-emerald-600/80 text-center mt-2 px-2">Parameters within normative
+                                ranges.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 border-t border-slate-100 flex items-start gap-3">
+                    <svg class="h-5 w-5 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        This diagnostic is based on a <strong>Random Forest Ensemble</strong> analysis trained on
+                        clinical datasets. <br>
+                        Generated on: <span class="font-medium text-slate-600">{{ now }}</span>
+                    </p>
+                </div>
+            </div>
+
+            {% else %}
+            <!-- Empty State -->
+            <div
+                class="clean-card h-full flex flex-col items-center justify-center p-12 text-center border-dashed border-2 border-slate-200 bg-slate-50/50">
+                <div class="w-20 h-20 bg-white rounded-full shadow-sm flex items-center justify-center mb-6">
+                    <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-slate-700 mb-2">Awaiting Data</h3>
+                <p class="text-sm text-slate-500 max-w-sm">
+                    Please fill out the clinical parameters form on the left to generate your personalized AI
+                    cardiovascular report.
+                </p>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
